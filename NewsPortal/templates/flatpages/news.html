@@ -1,0 +1,36 @@
+{% extends 'flatpages/default.html' %}
+
+{% load custom_tags %}
+
+
+{% block title %}
+News
+{% endblock title %}
+
+{% block content %}
+<h1>{{ News }}</h1>
+{% if PostCategory %}
+<div class="list-group">
+    <br>
+    {% for new in PostCategory %}
+    <a href="{{ new.id }}" class="list-group-item list-group-item-action">
+        <h3 style="..."><span
+                style="...">{{ new.title }}</span></h3>
+        <h6 style="..."><span
+                style="...">Дата публикации: {{ new.dateCreation | date:'d M Y h:m:s' }}</span></h6>
+        <h5 style="...">{{ new.text | truncatewords:20 }}</h5>
+        <h6 style="..."><span
+                style="...">Автор: {{ new.author.user }}</span></h6>
+        <h6 style="..."><span
+                style="...">Категории: </span>
+        {% for cat in new.postCategory.all %}
+        {{ cat }}
+        {% endfor %}</h6>
+    </a>
+
+    {% endfor%}
+</div>
+{% else %}
+<h2>Ждем свежие новости</h2>
+{% endif %}
+{% endblock content %}

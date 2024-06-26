@@ -1,0 +1,27 @@
+{% extends 'flatpages/default.html' %}
+
+{% load custom_filters %}
+
+
+{% block title %}
+News
+{% endblock title %}
+
+{% block content %}
+{% if PostCategory %}
+    <h3 style="..."><span
+            style="...">{{ PostCategory.title | censor }}</span></h3>
+    <h6 style="..."><span
+            style="...">Дата публикации: {{ PostCategory.dateCreation | date:'d M Y h:m:s' }}</span></h6>
+    <h5 style="...">{{ PostCategory.text | censor }}</h5>
+    <h6 style="..."><span
+            style="...">Автор: {{ PostCategory.author.user }}</span></h6>
+<!--<h6 style="..."><span-->
+<!--        style="...">Тэги: {{ new.tag }}</span></h6>-->
+    <h6 style="text-align: left;"><span
+            style="...">Категории: </span>
+            {% for cat in PostCategory.postCategory.all %}
+            {{ cat }}</h6>
+            {% endfor %}
+{% endif %}
+{% endblock content %}
